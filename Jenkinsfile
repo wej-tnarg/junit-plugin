@@ -19,8 +19,11 @@ pipeline {
                 sh 'mvn -Dmaven.test.failure.ignore=true install'
             }
             post {
-                success {
+                always {
                     junit 'target/surefire-reports/**/*.xml'
+                }
+                success {
+                    archive 'target/**'
                 }
             }
         }
