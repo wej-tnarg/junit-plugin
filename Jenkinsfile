@@ -2,6 +2,7 @@ pipeline {
   agent {
     docker {
       image 'maven:3.3.9-jdk-8'
+      args '-v /root/.m2:/tmp/.m2 '
     }
     
   }
@@ -19,7 +20,6 @@ pipeline {
         sh 'mvn -Dmaven.test.failure.ignore=true install'
       }
     }
-    
     stage('Report') {
       steps {
         junit 'target/surefire-reports/**/*.xml'
